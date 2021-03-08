@@ -1,11 +1,20 @@
-import UsersList from 'components/UsersList/UsersList';
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
 
-function Root(props) {
+import UsersList from 'components/organisms/UsersList/UsersList';
+
+import { GlobalStyle } from 'assets/styles/globalStyle';
+import { theme } from 'assets/styles/theme';
+import { Wrapper } from './Root.styles';
+
+function Root() {
   return (
-    <>
-      <UsersList />
-    </>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Wrapper>
+        <UsersList />
+      </Wrapper>
+    </ThemeProvider>
   );
 }
 
