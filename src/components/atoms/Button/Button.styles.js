@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
 export const StyledButton = styled.button`
-  width: 40px;
-  height: 40px;
+  width: 22px;
+  height: 22px;
   background-color: ${({ theme }) => theme.colors.grey};
   border-radius: 50px;
+  margin: 0 10px;
   border: none;
-  color: white;
+  color: ${({ theme }) => theme.colors.white};
   display: flex;
   align-items: center;
   justify-content: center;
