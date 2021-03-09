@@ -21,8 +21,10 @@ function Navigation() {
   return (
     <Wrapper>
       <Logo />
+      <NavItem path='' text='Dashboard' />
       <NavItem path='add-user' text='Add-user' />
-      <NavItem path='' text='Home' />
+      {/* <NavItem path='' text='Settings' exact /> */}
+      {/* <NavItem path='' text='Logout' exact /> */}
     </Wrapper>
   );
 }

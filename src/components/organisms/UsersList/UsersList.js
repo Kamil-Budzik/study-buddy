@@ -1,23 +1,31 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import UsersListsItem from 'components/molecules/UsersListItem/UsersListItem';
 
-import { Wrapper, StyledList, StyledTitle } from './UsersList.styles';
+import { StyledList } from './UsersList.styles';
 
-function UsersList({ deleteUser, users }) {
+import { StyledTitle } from 'components/atoms/Title/Title';
+import { ViewWrapper } from 'components/atoms/ViewWrapper/ViewWrapper';
+
+import { USER_SHAPE } from 'types/index';
+
+function UsersList({ users }) {
   return (
-    <Wrapper>
+    <ViewWrapper>
       <StyledTitle>Students list</StyledTitle>
       <StyledList>
         {users.map(userData => (
-          <UsersListsItem
-            deleteUser={deleteUser}
-            key={userData.name}
-            userData={userData}
-          />
+          <UsersListsItem key={userData.name} userData={userData} />
         ))}
       </StyledList>
-    </Wrapper>
+    </ViewWrapper>
   );
 }
+
+UsersList.propTypes = {
+  users: PropTypes.arrayOf(PropTypes.shape(USER_SHAPE)),
+  deleteUser: PropTypes.func,
+};
 
 export default UsersList;

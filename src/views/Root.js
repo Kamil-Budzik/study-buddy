@@ -1,68 +1,63 @@
 import React, { useState } from 'react';
-import UsersList from 'components/organisms/UsersList/UsersList';
+
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from 'assets/styles/globalStyle.js';
 import { theme } from 'assets/styles/theme';
 import { Wrapper } from './Root.styles';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Form from 'components/organisms/Form/Form';
+
 import usersData from 'data/users';
 import Navigation from 'components/organisms/Navigation/Navigation';
+import AddUser from 'views/AddUser';
+import Dashboard from 'views/Dashboard';
 
-const initialFormState = {
-  name: '',
-  attendance: '',
-  average: '',
-};
+export const UsersContext = React.createContext({
+  users: [],
+  handleAddUser: () => {},
+  deleteUser: () => {},
+});
 
 const Root = () => {
   const [users, setUsers] = useState(usersData);
-  const [formValues, setFormValues] = useState(initialFormState);
 
   const deleteUser = name => {
     const filteredUsers = users.filter(user => user.name !== name);
     setUsers(filteredUsers);
   };
 
-  const handleInputChange = e => {
-    console.log(formValues);
-    setFormValues({
-      ...formValues,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleAddUser = e => {
-    e.preventDefault();
+  const handleAddUser = values => {
     const newUser = {
-      name: formValues.name,
-      attendance: formValues.attendance,
-      average: formValues.average,
+      name: values.name,
+      attendance: values.attendance,
+      average: values.average,
     };
 
     setUsers([newUser, ...users]);
-    setFormValues(initialFormState);
   };
 
   return (
     <Router>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Wrapper>
-          <Navigation />
-          <Switch>
-            <Route path='/add-user'>
-              <Form
-                formValues={formValues}
-                handleAddUser={handleAddUser}
-                handleInputChange={handleInputChange}
-              />
-            </Route>
-            <Route path='/'>
-              <UsersList deleteUser={deleteUser} users={users} />
-            </Route>
-          </Switch>
-        </Wrapper>
+        <UsersContext.Provider
+          value={{
+            users,
+            handleAddUser,
+            deleteUser,
+          }}
+        >
+          <Wrapper>
+            <Navigation />
+            <Switch>
+              <Route path='/add-user'>
+                <AddUser />
+              </Route>
+              <Route path='/'>
+                <Dashboard />
+              </Route>
+            </Switch>
+          </Wrapper>
+        </UsersContext.Provider>
       </ThemeProvider>
     </Router>
   );
