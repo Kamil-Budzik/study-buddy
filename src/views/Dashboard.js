@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { UsersContext } from 'views/Root';
+import { UsersContext } from 'providers/UsersProvider';
 import { ViewWrapper } from 'components/atoms/ViewWrapper/ViewWrapper';
 import UsersList from 'components/organisms/UsersList/UsersList';
 

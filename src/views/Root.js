@@ -1,51 +1,24 @@
-import React, { useState } from 'react';
-
-import { ThemeProvider } from 'styled-components';
-import { GlobalStyle } from 'assets/styles/globalStyle.js';
-import { theme } from 'assets/styles/theme';
-import { Wrapper } from './Root.styles';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import usersData from 'data/users';
+import { ThemeProvider } from 'styled-components';
+import { theme } from 'assets/styles/theme';
+import { GlobalStyle } from 'assets/styles/globalStyle.js';
+
 import Navigation from 'components/organisms/Navigation/Navigation';
 import AddUser from 'views/AddUser';
 import Dashboard from 'views/Dashboard';
 
-export const UsersContext = React.createContext({
-  users: [],
-  handleAddUser: () => {},
-  deleteUser: () => {},
-});
+import UsersProvider from 'providers/UsersProvider';
+
+import { Wrapper } from './Root.styles';
 
 const Root = () => {
-  const [users, setUsers] = useState(usersData);
-
-  const deleteUser = name => {
-    const filteredUsers = users.filter(user => user.name !== name);
-    setUsers(filteredUsers);
-  };
-
-  const handleAddUser = values => {
-    const newUser = {
-      name: values.name,
-      attendance: values.attendance,
-      average: values.average,
-    };
-
-    setUsers([newUser, ...users]);
-  };
-
   return (
     <Router>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <UsersContext.Provider
-          value={{
-            users,
-            handleAddUser,
-            deleteUser,
-          }}
-        >
+        <UsersProvider>
           <Wrapper>
             <Navigation />
             <Switch>
@@ -57,7 +30,7 @@ const Root = () => {
               </Route>
             </Switch>
           </Wrapper>
-        </UsersContext.Provider>
+        </UsersProvider>
       </ThemeProvider>
     </Router>
   );

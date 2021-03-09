@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 
 import { Wrapper, StyledAverage, StyledInfo } from './UsersListItem.styles';
 import DeleteButton from 'components/atoms/DeleteButton/DeleteButton';
+import { UsersContext } from 'providers/UsersProvider';
+
 import { USER_SHAPE } from 'types';
-import { UsersContext } from 'views/Root';
 
 function UsersListItem({ userData: { name, average, attendance = '0%' } }) {
   const { deleteUser } = useContext(UsersContext);
