@@ -1,36 +1,22 @@
 import React from 'react';
-// import PropTypes from 'prop-types'
-import styled from 'styled-components';
+import { Logo, StyledLink, Wrapper } from 'components/organisms/Navigation/Navigation.styles';
 
-import Logo from 'components/atoms/Logo/Logo';
-import NavItem from 'components/atoms/NavItem/NavItem';
-
-const Wrapper = styled.div`
-  width: 110px;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  border-right: 1px solid ${({ theme }) => theme.colors.darkPurple};
-  padding: 30px 0;
-`;
-
-function Navigation() {
+const Navigation = () => {
   return (
     <Wrapper>
-      <Logo />
-      <NavItem path='' text='Dashboard' />
-      <NavItem path='add-user' text='Add-user' />
-      {/* <NavItem path='' text='Settings' exact /> */}
-      {/* <NavItem path='' text='Logout' exact /> */}
+      <Logo>
+        <h1>
+          Study
+          <br />
+          Buddy
+        </h1>
+      </Logo>
+      <StyledLink exact to="/">
+        Dashboard
+      </StyledLink>
+      <StyledLink to="/add-user">Add user</StyledLink>
     </Wrapper>
   );
-}
-
-// Navigation.propTypes = {
-//
-// }
+};
 
 export default Navigation;

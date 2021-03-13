@@ -4,6 +4,7 @@ export const Wrapper = styled.li`
   display: flex;
   align-items: center;
   position: relative;
+
   &:not(:last-child)::after {
     content: '';
     position: absolute;
@@ -15,39 +16,39 @@ export const Wrapper = styled.li`
 `;
 
 export const StyledAverage = styled.div`
+  width: 35px;
+  height: 35px;
+  border-radius: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background-color: ${({ average, theme }) => {
-    if (average > 4) return theme.colors.success;
-    if (average > 3) return theme.colors.warning;
-    if (average > 2) return theme.colors.error;
+  font-size: ${({ theme }) => theme.fontSize.s};
+  color: ${({ theme }) => theme.colors.white};
+  font-weight: bold;
+  background: ${({ theme, value }) => {
+    if (value > 4) return theme.colors.success;
+    if (value > 3) return theme.colors.warning;
+    if (value > 2) return theme.colors.error;
     return theme.colors.grey;
   }};
-  font-weight: bold;
-  font-size: ${({ theme }) => theme.fontSize.m};
-  color: ${({ theme }) => theme.colors.white};
 `;
 
 export const StyledInfo = styled.div`
-  color: ${({ theme }) => theme.colors.darkGrey};
   padding: 25px 20px;
 
   p {
+    margin: 0;
     color: ${({ theme }) => theme.colors.darkGrey};
   }
 
   p:first-child {
-    font-size: ${({ theme }) => theme.fontSize.l};
-    font-weight: bold;
     display: flex;
     align-items: center;
+    font-weight: bold;
+    font-size: ${({ theme }) => theme.fontSize.l};
   }
 
   p:last-child {
-    font-size: ${({ theme }) => theme.fontSize.s};
+    font-size: ${({ theme }) => theme.fontSize.m};
   }
 `;

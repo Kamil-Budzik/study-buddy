@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { UsersContext } from 'providers/UsersProvider';
-import { ViewWrapper } from 'components/atoms/ViewWrapper/ViewWrapper';
+import { ViewWrapper } from 'components/molecules/ViewWrapper/ViewWrapper';
 import UsersList from 'components/organisms/UsersList/UsersList';
+import { UsersContext } from 'providers/UsersProvider';
 
-function Dashboard() {
+const Dashboard = () => {
   const { users } = useContext(UsersContext);
 
   return (
@@ -11,6 +11,6 @@ function Dashboard() {
       <UsersList users={users} />
     </ViewWrapper>
   );
-}
+};
 
 export default Dashboard;
