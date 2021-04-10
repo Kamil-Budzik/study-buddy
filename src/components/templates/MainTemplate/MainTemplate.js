@@ -1,9 +1,10 @@
 import React from 'react';
 //components
 import Navigation from 'components/organisms/Navigation/Navigation';
+import NewsSection from '../NewsSection/NewsSection';
 import SearchBar from 'components/organisms/SearchBar/SearchBar';
 //styles
-import { Wrapper, News } from 'components/templates/MainTemplate/MainTemplate.styles';
+import { Wrapper } from 'components/templates/MainTemplate/MainTemplate.styles';
 
 const MainTemplate = ({ children }) => {
   return (
@@ -11,13 +12,7 @@ const MainTemplate = ({ children }) => {
       <Navigation />
       <SearchBar />
       {children}
-      <News>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-        <p>lorem ipsum</p>
-      </News>
+      <NewsSection />
     </Wrapper>
   );
 };
