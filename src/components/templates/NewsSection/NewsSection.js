@@ -5,8 +5,6 @@ import { Button } from 'components/atoms/Button/Button';
 //styles
 import { Wrapper, ArticleWrapper, NewsSectionHeader, TitleWrapper, ContentWrapper } from './NewsSection.styles';
 
-const API_TOKEN = 'c8b963ed78e9dfbd6afbe70219c87e';
-
 const NewsSection = () => {
   const [articles, setArticles] = useState([]);
   const [error, setError] = useState('');
@@ -27,7 +25,7 @@ const NewsSection = () => {
   }
 }`,
         },
-        { headers: { authorization: `Bearer ${API_TOKEN}` } }
+        { headers: { authorization: `Bearer ${process.env.REACT_APP_DATOCMS_TOKEN}` } }
       )
       .then(({ data: { data } }) => {
         setArticles(data.allArticles);
