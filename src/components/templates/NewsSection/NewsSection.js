@@ -1,23 +1,58 @@
-//comppnents
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+//components
 import { Button } from 'components/atoms/Button/Button';
 //styles
-import { Wrapper, ArticleWrapper, NewsSectionHeader, TitleWrapper } from './NewsSection.styles';
+import { Wrapper, ArticleWrapper, NewsSectionHeader, TitleWrapper, ContentWrapper } from './NewsSection.styles';
+
+const API_TOKEN = 'c8b963ed78e9dfbd6afbe70219c87e';
 
 const NewsSection = () => {
+  const [articles, setArticles] = useState([]);
+  const [error, setError] = useState('');
+  useEffect(() => {
+    axios
+      .post(
+        'https://graphql.datocms.com/',
+        {
+          query: `{
+  allArticles {
+    title
+    category
+    content
+    image {
+      url
+      alt
+    }
+  }
+}`,
+        },
+        { headers: { authorization: `Bearer ${API_TOKEN}` } }
+      )
+      .then(({ data: { data } }) => {
+        setArticles(data.allArticles);
+      })
+      .catch(() => setError("Sorry, we couldn't load articles for you"));
+  }, []);
   return (
     <Wrapper>
       <NewsSectionHeader>News feed section</NewsSectionHeader>
-      <ArticleWrapper>
-        <TitleWrapper>
-          <h3>Lorem ipsum</h3>
-          <p>Tech news</p>
-        </TitleWrapper>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi eum vel officia obcaecati! Quas quis ad, culpa deserunt accusantium possimus
-          magni saepe asperiores sed dolores, ipsam fugit voluptates minima mollitia.
-        </p>
-        <Button isBig>click me</Button>
-      </ArticleWrapper>
+      {articles.length > 0 && !error
+        ? articles.map(({ title, category, content, image = null }) => (
+            <ArticleWrapper key={title}>
+              <TitleWrapper>
+                <h3>{title}</h3>
+                <p>{category}</p>
+              </TitleWrapper>
+              <ContentWrapper>
+                <p>{content}</p>
+                {image && <img src={image.url} alt={image.alr} />}
+              </ContentWrapper>
+              <Button isBig>click me</Button>
+            </ArticleWrapper>
+          ))
+        : !error && <NewsSectionHeader>Loading...</NewsSectionHeader>}
+      {error && <NewsSectionHeader>{error}</NewsSectionHeader>}
     </Wrapper>
   );
 };
