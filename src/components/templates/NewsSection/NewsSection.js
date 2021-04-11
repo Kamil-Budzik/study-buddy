@@ -5,15 +5,7 @@ import { Button } from 'components/atoms/Button/Button';
 //styles
 import { Wrapper, ArticleWrapper, NewsSectionHeader, TitleWrapper, ContentWrapper } from './NewsSection.styles';
 
-const NewsSection = () => {
-  const [articles, setArticles] = useState([]);
-  const [error, setError] = useState('');
-  useEffect(() => {
-    axios
-      .post(
-        'https://graphql.datocms.com/',
-        {
-          query: `{
+export const query = `{
   allArticles {
     title
     category
@@ -23,7 +15,17 @@ const NewsSection = () => {
       alt
     }
   }
-}`,
+}`;
+
+const NewsSection = () => {
+  const [articles, setArticles] = useState([]);
+  const [error, setError] = useState('');
+  useEffect(() => {
+    axios
+      .post(
+        'https://graphql.datocms.com/',
+        {
+          query,
         },
         { headers: { authorization: `Bearer ${process.env.REACT_APP_DATOCMS_TOKEN}` } }
       )
@@ -36,8 +38,8 @@ const NewsSection = () => {
     <Wrapper>
       <NewsSectionHeader>News feed section</NewsSectionHeader>
       {articles.length > 0 && !error
-        ? articles.map(({ title, category, content, image = null }) => (
-            <ArticleWrapper key={title}>
+        ? articles.map(({ id, title, category, content, image = null }) => (
+            <ArticleWrapper key={id}>
               <TitleWrapper>
                 <h3>{title}</h3>
                 <p>{category}</p>
