@@ -1,10 +1,8 @@
 import React from 'react';
-//components
 import Navigation from 'components/organisms/Navigation/Navigation';
-import NewsSection from '../NewsSection/NewsSection';
-import SearchBar from 'components/organisms/SearchBar/SearchBar';
-//styles
 import { Wrapper } from 'components/templates/MainTemplate/MainTemplate.styles';
+import { SearchBar } from 'components/organisms/SearchBar/SearchBar';
+import NewsSection from 'components/templates/NewsSection/NewsSection';
 
 const MainTemplate = ({ children }) => {
   return (
