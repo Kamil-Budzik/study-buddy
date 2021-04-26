@@ -17,13 +17,14 @@ export const Wrapper = styled.li`
 `;
 
 export const StyledAverage = styled.div`
-  width: 35px;
-  height: 35px;
+  width: ${({ isBig }) => (isBig ? '50px' : '35px')};
+  height: ${({ isBig }) => (isBig ? '50px' : '35px')};
   border-radius: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: ${({ theme }) => theme.fontSize.s};
+  font-size: ${({ theme, isBig }) =>
+    isBig ? theme.fontSize.l : theme.fontSize.s};
   color: ${({ theme }) => theme.colors.white};
   font-weight: bold;
   background: ${({ theme, value }) => {
