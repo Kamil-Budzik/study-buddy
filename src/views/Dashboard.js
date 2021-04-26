@@ -5,11 +5,15 @@ import StudentsList from 'components/organisms/StudentsList/StudentsList';
 import { useStudents } from 'hooks/useStudents';
 import { GroupWrapper, TitleWrapper, Wrapper } from 'views/Dashboard.styles';
 import { Title } from 'components/atoms/Title/Title';
+import useModal from 'hooks/useModal';
+import { StyledAverage } from 'components/molecules/StudentsListItem/StudentsListItem.styles';
 
 const Dashboard = () => {
   const [groups, setGroups] = useState([]);
-  const { getGroups } = useStudents();
+  const [currentStudent, setCurrentStudent] = useState('');
+  const { getGroups, getStudentById } = useStudents();
   const { id } = useParams();
+  const { Modal, isOpen, handleOpenModal, handleCloseModal } = useModal();
 
   useEffect(() => {
     (async () => {
@@ -17,6 +21,12 @@ const Dashboard = () => {
       setGroups(groups);
     })();
   }, [getGroups]);
+
+  const handleOpenStudentDetails = async (id) => {
+    const student = await getStudentById(id);
+    setCurrentStudent(student);
+    handleOpenModal();
+  };
 
   if (!id && groups.length > 0) return <Redirect to={`/group/${groups[0]}`} />;
 
@@ -33,7 +43,18 @@ const Dashboard = () => {
         </nav>
       </TitleWrapper>
       <GroupWrapper>
-        <StudentsList />
+        <StudentsList handleOpenStudentDetails={handleOpenStudentDetails} />
+        {isOpen ? (
+          <Modal handleClose={handleCloseModal}>
+            <Title>
+              {currentStudent.name} | Group {currentStudent.group}
+            </Title>
+            <p>{currentStudent.attendance}</p>
+            <StyledAverage value={currentStudent.average}>
+              {currentStudent.average}
+            </StyledAverage>
+          </Modal>
+        ) : null}
       </GroupWrapper>
     </Wrapper>
   );
