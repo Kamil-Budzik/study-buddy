@@ -1,37 +1,32 @@
+import React from 'react';
+//components
 import { Title } from 'components/atoms/Title/Title';
-import { StyledAverage } from 'components/atoms/StyledAverage/StyledAverage';
-import { Wrapper, Header, Grades } from './StudentDetails.styles';
+import { Average } from 'components/atoms/Average/Average';
+import {
+  BigAverage,
+  StyledDetails,
+  StyledInfo,
+  StyledLabel,
+  StyledSubjectInfo,
+  Wrapper,
+} from 'components/molecules/StudentDetails/StudentDetails.styles';
 
 const StudentDetails = ({ student }) => {
   return (
     <Wrapper>
-      <Header>
-        <StyledAverage value={student.average} isBig>
-          {student.average}
-        </StyledAverage>
-
-        <Title>{student.name}</Title>
-        <small>Icons</small>
-      </Header>
-      <ul>
-        <li>
-          <header>Course:</header>
-        </li>
-        <li>Economy and finances</li>
-      </ul>
-      <Grades>
-        <li>
-          <header>Average grades:</header>
-        </li>
-        <li>
-          <p>Modern Economy</p>
-          <StyledAverage value={3.4}>3.4</StyledAverage>
-        </li>
-        <li>
-          <p>Trade and Logistics</p>
-          <StyledAverage value={4.1}>4.1</StyledAverage>
-        </li>
-      </Grades>
+      <BigAverage value={student.average}>{student.average}</BigAverage>
+      <Title isBig>{student.name}</Title>
+      <StyledDetails>
+        <StyledLabel>Course:</StyledLabel>
+        <StyledInfo isBig>{student.course}</StyledInfo>
+        <StyledLabel>Average grades:</StyledLabel>
+        {student.grades.map(({ subject, average }) => (
+          <StyledSubjectInfo key={subject}>
+            <StyledInfo>{subject}</StyledInfo>
+            <Average value={average}>{average}</Average>
+          </StyledSubjectInfo>
+        ))}
+      </StyledDetails>
     </Wrapper>
   );
 };

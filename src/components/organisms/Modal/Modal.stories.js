@@ -12,6 +12,17 @@ const mockedStudent = {
   attendance: '39%',
   average: '2.3',
   group: 'A',
+  course: 'Business Philosophy',
+  grades: [
+    {
+      subject: 'Business Philosophy',
+      average: '3.3',
+    },
+    {
+      subject: 'BMarketing',
+      average: '4.5',
+    },
+  ],
 };
 
 const Template = (args) => (

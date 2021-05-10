@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 //components
 import DeleteButton from 'components/atoms/DeleteButton/DeleteButton';
-import { StyledAverage } from 'components/atoms/StyledAverage/StyledAverage';
+import { Average } from 'components/atoms/Average/Average';
 //types
 import { UserShape } from 'types';
 //styles
@@ -14,7 +14,7 @@ const StudentsListItem = ({
 }) => {
   return (
     <Wrapper {...props}>
-      <StyledAverage value={average}>{average}</StyledAverage>
+      <Average value={average}>{average}</Average>
       <StyledInfo>
         <p>
           {name}

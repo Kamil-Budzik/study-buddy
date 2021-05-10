@@ -11,6 +11,7 @@ import useModal from 'hooks/useModal';
 import { useStudents } from 'hooks/useStudents';
 //styles
 import { GroupWrapper, TitleWrapper, Wrapper } from 'views/Dashboard.styles';
+import axios from 'axios';
 
 const mockedStudent = {
   id: '1',
@@ -18,6 +19,17 @@ const mockedStudent = {
   attendance: '39%',
   average: '2.3',
   group: 'A',
+  course: 'Business Philosophy',
+  grades: [
+    {
+      subject: 'Business Philosophy',
+      average: '3.3',
+    },
+    {
+      subject: 'BMarketing',
+      average: '4.5',
+    },
+  ],
 };
 
 const Dashboard = () => {
