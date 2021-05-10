@@ -1,5 +1,5 @@
 import { Title } from 'components/atoms/Title/Title';
-import { StyledAverage } from 'components/molecules/StudentsListItem/StudentsListItem.styles';
+import { StyledAverage } from 'components/atoms/StyledAverage/StyledAverage';
 import { Wrapper, Header, Grades } from './StudentDetails.styles';
 
 const StudentDetails = ({ student }) => {
