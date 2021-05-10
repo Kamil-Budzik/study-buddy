@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.6.2",
     "axios": "^0.21.1",
     "downshift": "^6.1.2",
+    "faker": "^5.5.3",
     "lodash.debounce": "^4.0.8",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -48,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@mswjs/data": "^0.3.0",
     "@storybook/addon-actions": "^6.2.8",
     "@storybook/addon-essentials": "^6.2.8",
     "@storybook/addon-links": "^6.2.8",
