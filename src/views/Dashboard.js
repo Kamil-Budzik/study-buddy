@@ -12,6 +12,14 @@ import { useStudents } from 'hooks/useStudents';
 //styles
 import { GroupWrapper, TitleWrapper, Wrapper } from 'views/Dashboard.styles';
 
+const mockedStudent = {
+  id: '1',
+  name: 'Adam Romański',
+  attendance: '39%',
+  average: '2.3',
+  group: 'A',
+};
+
 const Dashboard = () => {
   const [groups, setGroups] = useState([]);
   const [currentStudent, setCurrentStudent] = useState('');
@@ -48,11 +56,9 @@ const Dashboard = () => {
       </TitleWrapper>
       <GroupWrapper>
         <StudentsList handleOpenStudentDetails={handleOpenStudentDetails} />
-        {isOpen ? (
-          <Modal handleClose={handleCloseModal}>
-            <StudentDetails student={currentStudent} />
-          </Modal>
-        ) : null}
+        <Modal handleClose={handleCloseModal} isOpen={isOpen}>
+          <StudentDetails student={mockedStudent} />
+        </Modal>
       </GroupWrapper>
     </Wrapper>
   );
