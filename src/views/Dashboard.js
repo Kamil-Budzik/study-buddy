@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect, useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Redirect, useParams, Link } from 'react-router-dom';
+//components
 import StudentsList from 'components/organisms/StudentsList/StudentsList';
-import { useStudents } from 'hooks/useStudents';
-import { GroupWrapper, TitleWrapper, Wrapper } from 'views/Dashboard.styles';
-import { Title } from 'components/atoms/Title/Title';
-import useModal from 'hooks/useModal';
-import StudentDetails from 'components/molecules/StudentDetails/StudentDetails';
 import Modal from 'components/organisms/Modal/Modal';
+import StudentDetails from 'components/molecules/StudentDetails/StudentDetails';
+import { Title } from 'components/atoms/Title/Title';
+//hooks
+import { useStudents } from 'hooks/useStudents';
+import useModal from 'hooks/useModal';
+//styles
+import { GroupWrapper, TitleWrapper, Wrapper } from 'views/Dashboard.styles';
 
 const Dashboard = () => {
   const [groups, setGroups] = useState([]);
