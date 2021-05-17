@@ -33,12 +33,12 @@ const AuthenticatedApp = () => {
   );
 };
 
-const UnauthenticatedApp = ({ handleSignIn }) => {
+const UnauthenticatedApp = ({ handleSignIn, loginError }) => {
   const { register, handleSubmit } = useForm();
-  const onSubmit = ({ login, password }) => handleSignIn({ login, password });
+
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(handleSignIn)}
       style={{
         height: '100vh',
         display: 'flex',
@@ -56,12 +56,14 @@ const UnauthenticatedApp = ({ handleSignIn }) => {
         {...register('password')}
       />
       <Button>Sign in</Button>
+      {loginError && <p>Please provide valid user data</p>}
     </form>
   );
 };
 
 const Root = () => {
   const [user, setUser] = React.useState(null);
+  const [error, setError] = React.useState(null);
 
   React.useEffect(() => {
     const token = localStorage.getItem('token');
@@ -90,7 +92,7 @@ const Root = () => {
       setUser(response.data);
       localStorage.setItem('token', response.data.token);
     } catch (e) {
-      console.log(e);
+      setError('Please provide valid user data');
     }
   };
 
@@ -101,7 +103,7 @@ const Root = () => {
         {user ? (
           <AuthenticatedApp />
         ) : (
-          <UnauthenticatedApp handleSignIn={handleSignIn} />
+          <UnauthenticatedApp loginError={error} handleSignIn={handleSignIn} />
         )}
       </ThemeProvider>
     </Router>
