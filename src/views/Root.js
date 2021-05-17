@@ -14,6 +14,7 @@ import MainTemplate from 'components/templates/MainTemplate/MainTemplate';
 import Dashboard from 'views/Dashboard';
 import FormField from 'components/molecules/FormField/FormField';
 import { Button } from 'components/atoms/Button/Button';
+import axios from 'axios';
 
 const AuthenticatedApp = () => {
   return (
@@ -32,9 +33,9 @@ const AuthenticatedApp = () => {
   );
 };
 
-const UnauthenticatedApp = () => {
+const UnauthenticatedApp = ({ handleSignIn }) => {
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = ({ login, password }) => handleSignIn({ login, password });
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -61,11 +62,47 @@ const UnauthenticatedApp = () => {
 
 const Root = () => {
   const [user, setUser] = React.useState(null);
+
+  React.useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      (async () => {
+        try {
+          const response = await axios.get('/me', {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          });
+          setUser(response.data);
+        } catch (e) {
+          console.log(e);
+        }
+      })();
+    }
+  }, []);
+
+  const handleSignIn = async ({ login, password }) => {
+    try {
+      const response = await axios.post('/login', {
+        login,
+        password,
+      });
+      setUser(response.data);
+      localStorage.setItem('token', response.data.token);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <Router>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+        {user ? (
+          <AuthenticatedApp />
+        ) : (
+          <UnauthenticatedApp handleSignIn={handleSignIn} />
+        )}
       </ThemeProvider>
     </Router>
   );
