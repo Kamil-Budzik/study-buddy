@@ -1,33 +1,45 @@
 import styled from 'styled-components';
+import { Average } from 'components/atoms/Average/Average';
+
 export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
   width: 100%;
   padding: 40px;
-  color: ${({ theme }) => theme.colors.darkGrey};
-  ul > li {
-    list-style: none;
-  }
-  ul > li > header {
-    font-weight: bold;
-    font-size: 15px;
-  }
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 `;
-export const Grades = styled.ul`
-  li {
-    padding: 10px 0;
-    display: flex;
-    align-items: center;
-    p {
-      margin-right: 20px;
-    }
-  }
+
+export const BigAverage = styled(Average)`
+  width: 68px;
+  height: 68px;
+  font-size: ${({ theme }) => theme.fontSize.xl};
+  position: absolute;
+  left: 40px;
 `;
-export const Header = styled.header`
-  margin-top: 30px;
+
+export const StyledDetails = styled.div`
   width: 100%;
+  padding: 40px;
+`;
+
+export const StyledLabel = styled.h3`
+  font-size: ${({ theme }) => theme.fontSize.l};
+  color: ${({ theme }) => theme.colors.darkGrey};
+  margin-bottom: 0;
+`;
+
+export const StyledInfo = styled.p`
+  font-size: ${({ theme, isBig }) =>
+    isBig ? theme.fontSize.xl : theme.fontSize.l};
+  color: ${({ theme }) => theme.colors.darkGrey};
+  margin: 10px 20px 20px 0;
+`;
+
+export const StyledSubjectInfo = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: ${({ theme }) => theme.fontSize.xxl};
+  width: 250px;
 `;

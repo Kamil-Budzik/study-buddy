@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledAverage = styled.div`
+export const Average = styled.div`
   width: ${({ isBig }) => (isBig ? '50px' : '35px')};
   height: ${({ isBig }) => (isBig ? '50px' : '35px')};
   border-radius: 50px;

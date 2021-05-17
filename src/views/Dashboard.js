@@ -1,28 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { Redirect, useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Redirect, useParams, Link } from 'react-router-dom';
 //components
 import StudentsList from 'components/organisms/StudentsList/StudentsList';
-import { Title } from 'components/atoms/Title/Title';
 import Modal from 'components/organisms/Modal/Modal';
 import StudentDetails from 'components/molecules/StudentDetails/StudentDetails';
-//helpers
-import useModal from 'hooks/useModal';
+import { Title } from 'components/atoms/Title/Title';
+//hooks
 import { useStudents } from 'hooks/useStudents';
+import useModal from 'hooks/useModal';
 //styles
 import { GroupWrapper, TitleWrapper, Wrapper } from 'views/Dashboard.styles';
 
-const mockedStudent = {
-  id: '1',
-  name: 'Adam Romański',
-  attendance: '39%',
-  average: '2.3',
-  group: 'A',
-};
-
 const Dashboard = () => {
   const [groups, setGroups] = useState([]);
-  const [currentStudent, setCurrentStudent] = useState('');
+  const [currentStudent, setCurrentStudent] = useState(null);
   const { getGroups, getStudentById } = useStudents();
   const { id } = useParams();
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
@@ -30,6 +21,7 @@ const Dashboard = () => {
   useEffect(() => {
     (async () => {
       const groups = await getGroups();
+      console.log(groups);
       setGroups(groups);
     })();
   }, [getGroups]);
@@ -40,24 +32,25 @@ const Dashboard = () => {
     handleOpenModal();
   };
 
-  if (!id && groups.length > 0) return <Redirect to={`/group/${groups[0]}`} />;
+  if (!id && groups.length > 0)
+    return <Redirect to={`/group/${groups[0].id}`} />;
 
   return (
     <Wrapper>
       <TitleWrapper>
         <Title as="h2">Group {id}</Title>
         <nav>
-          {groups.map((group) => (
-            <Link key={group} to={`/group/${group}`}>
-              {group}{' '}
+          {groups.map(({ id }) => (
+            <Link key={id} to={`/group/${id}`}>
+              {id}{' '}
             </Link>
           ))}
         </nav>
       </TitleWrapper>
       <GroupWrapper>
         <StudentsList handleOpenStudentDetails={handleOpenStudentDetails} />
-        <Modal handleClose={handleCloseModal} isOpen={isOpen}>
-          <StudentDetails student={mockedStudent} />
+        <Modal isOpen={isOpen} handleClose={handleCloseModal}>
+          <StudentDetails student={currentStudent} />
         </Modal>
       </GroupWrapper>
     </Wrapper>
