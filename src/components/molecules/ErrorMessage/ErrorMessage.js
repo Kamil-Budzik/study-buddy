@@ -1,6 +1,24 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Title } from 'components/atoms/Title/Title';
+
+const shrinkAnimation = keyframes`
+  from {
+    transform: translateX(-50%) scaleX(1);
+  }
+  to {
+    transform: translateX(-50%) scaleX(0);
+  }
+`;
+
+const slideAnimation = keyframes`
+  from {
+    transform: translateX(-50%) translateY(500%);
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+  }
+`;
 
 export const Wrapper = styled.div`
   position: absolute;
@@ -12,6 +30,8 @@ export const Wrapper = styled.div`
   color: ${({ theme }) => theme.colors.error};
   border: 2px solid ${({ theme }) => theme.colors.error};
   border-radius: 15px;
+  animation: ${slideAnimation} 1s ease-in-out 1 forwards,
+    ${slideAnimation} 1s 6s ease-in-out 1 reverse forwards;
 
   ${Title} {
     color: ${({ theme }) => theme.colors.error};
@@ -37,6 +57,7 @@ export const Wrapper = styled.div`
   &::after {
     transform: translateX(-50%) scaleX(1);
     transform-origin: left top;
+    animation: ${shrinkAnimation} 5s 1s linear 1 forwards;
   }
 `;
 
