@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { BrowserRouter as Router } from 'react-router-dom';
 //styled-components-setup
 import { ThemeProvider } from 'styled-components';
