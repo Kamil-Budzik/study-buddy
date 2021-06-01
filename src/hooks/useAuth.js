@@ -20,11 +20,11 @@ export const AuthProvider = ({ children }) => {
           });
           setUser(response.data);
         } catch (e) {
-          console.log(e);
+          dispatchError();
         }
       })();
     }
-  }, []);
+  }, [dispatchError]);
 
   const signIn = async ({ login, password }) => {
     try {
