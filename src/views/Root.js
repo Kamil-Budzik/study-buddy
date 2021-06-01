@@ -5,10 +5,12 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import MainTemplate from 'components/templates/MainTemplate/MainTemplate';
 import FormField from 'components/molecules/FormField/FormField';
 import { Button } from 'components/atoms/Button/Button';
+import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage';
 //views
 import Dashboard from 'views/Dashboard';
 //hooks
 import { useAuth } from 'hooks/useAuth';
+import { useError } from 'hooks/useError';
 //styles
 import { Wrapper } from './Root.styles';
 
@@ -59,8 +61,14 @@ const UnauthenticatedApp = ({ handleSignIn, loginError }) => {
 
 const Root = () => {
   const auth = useAuth();
+  const { error } = useError();
 
-  return auth.user ? <AuthenticatedApp /> : <UnauthenticatedApp />;
+  return (
+    <>
+      {error ? <ErrorMessage /> : null}
+      {auth.user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+    </>
+  );
 };
 
 export default Root;
