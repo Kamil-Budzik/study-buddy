@@ -5,7 +5,10 @@ const ErrorContext = createContext({});
 export const ErrorProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
-  const dispatchError = useCallback((message) => setError(message), []);
+  const dispatchError = useCallback((message) => {
+    setError(message);
+    setTimeout(() => setError(''), 7000);
+  }, []);
 
   return (
     <div>
