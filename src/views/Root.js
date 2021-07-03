@@ -8,6 +8,7 @@ import { Button } from 'components/atoms/Button/Button';
 import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage';
 //views
 import Dashboard from 'views/Dashboard';
+import Notes from './Notes';
 //hooks
 import { useAuth } from 'hooks/useAuth';
 import { useError } from 'hooks/useError';
@@ -24,6 +25,9 @@ const AuthenticatedApp = () => {
           </Route>
           <Route path="/group/:id?">
             <Dashboard />
+          </Route>
+          <Route path="/notes">
+            <Notes />
           </Route>
         </Switch>
       </Wrapper>
