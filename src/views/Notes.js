@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
 //styles
 import { Button } from 'components/atoms/Button/Button';
 import {
@@ -15,11 +16,17 @@ const Notes = () => {
   const notes = useSelector((state) => state.notes);
   const dispatch = useDispatch();
 
-  const handleAddNote = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const handleAddNote = ({ title, content }) => {
     dispatch(
       addNote({
-        title: 'New Note',
-        content: 'Lorem ipsum dolor sit amet dolon solonez',
+        title,
+        content,
       })
     );
   };
@@ -27,15 +34,23 @@ const Notes = () => {
   return (
     <Wrapper>
       {console.log(notes)}
-      <FormWrapper>
-        <StyledFormField label="Title" name="title" id="title" />
+      <FormWrapper onSubmit={handleSubmit(handleAddNote)}>
         <StyledFormField
+          {...register('title', { required: true })}
+          label="Title"
+          name="title"
+          id="title"
+        />
+        <StyledFormField
+          {...register('content', { required: true })}
           isTextarea
           label="Content"
           name="content"
           id="content"
         />
-        <Button onClick={handleAddNote}>Add</Button>
+        {errors.title && <span>Title is required</span>}
+        {errors.content && <span>Content is required</span>}
+        <Button type="submit">Add</Button>
       </FormWrapper>
       <NotesWrapper>
         {notes.length ? (
