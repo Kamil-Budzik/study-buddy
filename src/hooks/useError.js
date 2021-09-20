@@ -1,28 +1,30 @@
-import React, { useState, useCallback, createContext, useContext } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 
-const ErrorContext = createContext({});
+const ErrorContext = React.createContext({});
 
 export const ErrorProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   const dispatchError = useCallback((message) => {
     setError(message);
-    setTimeout(() => setError(''), 7000);
+    setTimeout(() => {
+      setError('');
+    }, 7000);
   }, []);
 
   return (
-    <div>
-      <ErrorContext.Provider value={{ error, dispatchError }}>
-        {children}
-      </ErrorContext.Provider>
-    </div>
+    <ErrorContext.Provider value={{ error, dispatchError }}>
+      {children}
+    </ErrorContext.Provider>
   );
 };
 
 export const useError = () => {
   const errorContext = useContext(ErrorContext);
+
   if (!errorContext) {
-    throw Error('UseError needs to be used inside ErrorContext');
+    throw Error('useAuth needs to be used inside AuthContext');
   }
+
   return errorContext;
 };

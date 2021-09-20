@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Label } from 'components/atoms/Label/Label';
@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const FormField = forwardRef(
+const FormField = React.forwardRef(
   (
     { onChange, value, label, name, id, type = 'text', isTextarea, ...props },
     ref

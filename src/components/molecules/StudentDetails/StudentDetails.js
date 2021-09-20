@@ -1,5 +1,4 @@
 import React from 'react';
-//components
 import { Title } from 'components/atoms/Title/Title';
 import { Average } from 'components/atoms/Average/Average';
 import {

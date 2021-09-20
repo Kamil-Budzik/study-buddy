@@ -25,9 +25,9 @@ export const Wrapper = styled.div`
   transform: translateX(-50%);
   bottom: 10%;
   background-color: white;
-  padding: 20px 25px 15px;
+  padding: 25px 25px 15px;
   color: ${({ theme }) => theme.colors.error};
-  border: 2px solid ${({ theme }) => theme.colors.error};
+  border: 3px solid ${({ theme }) => theme.colors.error};
   border-radius: 15px;
   animation: ${slideAnimation} 1s ease-in-out 1 forwards,
     ${slideAnimation} 1s 6s ease-in-out 1 reverse forwards;

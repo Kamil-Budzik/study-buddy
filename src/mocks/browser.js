@@ -33,5 +33,4 @@ window.mocks = {
   getStudents: () => db.student.getAll(),
   getEvents: () => db.event.getAll(),
   getGroups: () => db.group.getAll(),
-  getNotes: () => db.note.getAll(),
 };

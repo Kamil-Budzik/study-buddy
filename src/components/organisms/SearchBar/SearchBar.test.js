@@ -1,6 +1,4 @@
-import { render, screen, fireEvent, waitFor } from 'test-utils';
-
-//components
+import { render, screen, fireEvent } from 'test-utils';
 import { SearchBar } from './SearchBar';
 
 describe('Search Bar', () => {
@@ -9,6 +7,7 @@ describe('Search Bar', () => {
     screen.getByText('Teacher');
     screen.getByPlaceholderText('Search');
   });
+
   it('Displays users when search phrase is matching', async () => {
     render(<SearchBar />);
     const input = screen.getByPlaceholderText('Search');

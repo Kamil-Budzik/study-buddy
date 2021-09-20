@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-//styles
+import React from 'react';
 import { Button } from 'components/atoms/Button/Button';
-import {
-  Wrapper,
-  FormWrapper,
-  StyledFormField,
-  NotesWrapper,
-} from './Notes.styles';
 import Note from 'components/molecules/Note/Note';
-import { useGetNotesQuery, useAddNoteMutation } from 'store';
+import { useAddNoteMutation, useGetNotesQuery } from 'store';
+import {
+  FormWrapper,
+  NotesWrapper,
+  StyledFormField,
+  Wrapper,
+} from 'views/Notes.styles';
+import { useForm } from 'react-hook-form';
 
 const Notes = () => {
   const {
@@ -17,19 +16,12 @@ const Notes = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { isLoading, data } = useGetNotesQuery();
+  const { data, isLoading } = useGetNotesQuery();
   const [addNote] = useAddNoteMutation();
-  const handleAddNote = ({ title, content }) => {
-    console.log(title, content);
-    addNote({
-      title,
-      content,
-    });
-  };
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  const handleAddNote = ({ title, content }) => {
+    addNote({ title, content });
+  };
 
   return (
     <Wrapper>
@@ -52,15 +44,15 @@ const Notes = () => {
         <Button type="submit">Add</Button>
       </FormWrapper>
       {isLoading ? (
-        <h1>Loading...</h1>
+        <h2>Loading...</h2>
       ) : (
         <NotesWrapper>
           {data.notes.length ? (
             data.notes.map(({ title, content, id }) => (
-              <Note key={id} id={id} title={title} content={content} />
+              <Note id={id} key={id} title={title} content={content} />
             ))
           ) : (
-            <p>No notes so far</p>
+            <p>Create your first note</p>
           )}
         </NotesWrapper>
       )}
