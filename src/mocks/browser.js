@@ -17,6 +17,9 @@ const seed = () => {
 
   db.teacher.create();
 
+  db.note.create();
+  db.note.create();
+
   for (let i = 0; i < 15; i++) {
     db.student.create();
     db.event.create();
@@ -30,4 +33,5 @@ window.mocks = {
   getStudents: () => db.student.getAll(),
   getEvents: () => db.event.getAll(),
   getGroups: () => db.group.getAll(),
+  getNotes: () => db.note.getAll(),
 };
