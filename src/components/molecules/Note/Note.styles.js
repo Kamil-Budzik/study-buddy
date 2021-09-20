@@ -6,6 +6,7 @@ export const NoteWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
+
   h3,
   p {
     margin: 0;

@@ -1,8 +1,8 @@
-import React, { useState, useEffect, createContext, useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { useError } from './useError';
+import { useError } from 'hooks/useError';
 
-const AuthContext = createContext({});
+const AuthContext = React.createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -20,11 +20,11 @@ export const AuthProvider = ({ children }) => {
           });
           setUser(response.data);
         } catch (e) {
-          dispatchError();
+          console.log(e);
         }
       })();
     }
-  }, [dispatchError]);
+  }, []);
 
   const signIn = async ({ login, password }) => {
     try {
@@ -38,6 +38,7 @@ export const AuthProvider = ({ children }) => {
       dispatchError('Invalid email or password');
     }
   };
+
   const signOut = () => {
     setUser(null);
     localStorage.removeItem('token');
@@ -54,7 +55,7 @@ export const useAuth = () => {
   const auth = useContext(AuthContext);
 
   if (!auth) {
-    throw Error('useAuth needs to be inside AuthContext');
+    throw Error('useAuth needs to be used inside AuthContext');
   }
 
   return auth;

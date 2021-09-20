@@ -2,13 +2,12 @@ import { Input } from 'components/atoms/Input/Input';
 import React, { useState } from 'react';
 import debounce from 'lodash.debounce';
 import { useCombobox } from 'downshift';
-// components
 import {
   SearchBarWrapper,
   SearchResults,
+  SearchResultsItem,
   SearchWrapper,
   StatusInfo,
-  SearchResultsItem,
 } from 'components/organisms/SearchBar/SearchBar.styles';
 import { useStudents } from 'hooks/useStudents';
 
@@ -31,17 +30,18 @@ export const SearchBar = () => {
   } = useCombobox({
     items: matchingStudents,
     onInputValueChange: getMatchingStudents,
+    itemToString: (item) => (item ? item.name : ''),
   });
 
   return (
-    <SearchBarWrapper {...getComboboxProps()}>
+    <SearchBarWrapper>
       <StatusInfo>
         <p>Logged as:</p>
         <p>
           <strong>Teacher</strong>
         </p>
       </StatusInfo>
-      <SearchWrapper>
+      <SearchWrapper {...getComboboxProps()}>
         <Input
           {...getInputProps()}
           name="Search"
@@ -56,8 +56,8 @@ export const SearchBar = () => {
           {isOpen &&
             matchingStudents.map((item, index) => (
               <SearchResultsItem
-                highlighted={highlightedIndex === index}
-                {...getItemProps({ item, index })}
+                isHighlighted={highlightedIndex === index}
+                {...getItemProps({ item: 'Mordo', index })}
                 key={item.id}
               >
                 {item.name}

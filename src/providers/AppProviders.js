@@ -1,12 +1,10 @@
+import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-//styled-components-setup
 import { ThemeProvider } from 'styled-components';
-import { GlobalStyle } from 'assets/styles/globalStyle';
 import { theme } from 'assets/styles/theme';
-
-import { ErrorProvider } from 'hooks/useError';
+import { GlobalStyle } from 'assets/styles/GlobalStyle';
 import { AuthProvider } from 'hooks/useAuth';
-//redux-setup
+import { ErrorProvider } from 'hooks/useError';
 import { Provider } from 'react-redux';
 import { store } from 'store';
 

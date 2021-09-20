@@ -1,39 +1,30 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useForm } from 'react-hook-form';
-//styles
 import { Button } from 'components/atoms/Button/Button';
-import {
-  Wrapper,
-  FormWrapper,
-  StyledFormField,
-  NotesWrapper,
-} from './Notes.styles';
 import Note from 'components/molecules/Note/Note';
-import { addNote } from 'store';
+import { useAddNoteMutation, useGetNotesQuery } from 'store';
+import {
+  FormWrapper,
+  NotesWrapper,
+  StyledFormField,
+  Wrapper,
+} from 'views/Notes.styles';
+import { useForm } from 'react-hook-form';
 
 const Notes = () => {
-  const notes = useSelector((state) => state.notes);
-  const dispatch = useDispatch();
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { data, isLoading } = useGetNotesQuery();
+  const [addNote] = useAddNoteMutation();
 
   const handleAddNote = ({ title, content }) => {
-    dispatch(
-      addNote({
-        title,
-        content,
-      })
-    );
+    addNote({ title, content });
   };
 
   return (
     <Wrapper>
-      {console.log(notes)}
       <FormWrapper onSubmit={handleSubmit(handleAddNote)}>
         <StyledFormField
           {...register('title', { required: true })}
@@ -52,15 +43,19 @@ const Notes = () => {
         {errors.content && <span>Content is required</span>}
         <Button type="submit">Add</Button>
       </FormWrapper>
-      <NotesWrapper>
-        {notes.length ? (
-          notes.map(({ title, content, id }) => (
-            <Note key={id} id={id} title={title} content={content} />
-          ))
-        ) : (
-          <p>No notes so far</p>
-        )}
-      </NotesWrapper>
+      {isLoading ? (
+        <h2>Loading...</h2>
+      ) : (
+        <NotesWrapper>
+          {data.notes.length ? (
+            data.notes.map(({ title, content, id }) => (
+              <Note id={id} key={id} title={title} content={content} />
+            ))
+          ) : (
+            <p>Create your first note</p>
+          )}
+        </NotesWrapper>
+      )}
     </Wrapper>
   );
 };

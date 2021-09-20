@@ -1,19 +1,25 @@
 import React from 'react';
-//components
+import PropTypes from 'prop-types';
+import { ModalWrapper } from 'components/organisms/Modal/Modal.styles';
 import { Button } from 'components/atoms/Button/Button';
-//styles
-import { ModalWrapper } from './Modal.styles';
 
-const Modal = ({ handleClose, children, isOpen }) => {
+const Modal = ({ handleClose, isOpen, children }) => {
   return (
     <ModalWrapper
-      appElement={document.getElementById('modal-container')}
+      appElement={document.getElementById('root')}
       isOpen={isOpen}
       onRequestClose={handleClose}
     >
-      {children} <Button onClick={handleClose}>Close</Button>
+      {children}
+      <Button onClick={handleClose}>Close</Button>
     </ModalWrapper>
   );
+};
+
+Modal.propTypes = {
+  handleClose: PropTypes.func,
+  isOpen: PropTypes.bool,
+  children: PropTypes.element,
 };
 
 export default Modal;

@@ -9,13 +9,13 @@ const Wrapper = styled.div`
 `;
 
 export default {
-  title: 'Components/molecules/ErrorMessage',
+  title: 'Components/Molecules/ErrorMessage',
   component: ErrorMessage,
 };
 
 const Template = (args) => (
   <Wrapper>
-    <ErrorMessage {...args} />{' '}
+    <ErrorMessage {...args} />
   </Wrapper>
 );
 

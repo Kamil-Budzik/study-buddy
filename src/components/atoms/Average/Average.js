@@ -1,14 +1,13 @@
 import styled from 'styled-components';
 
 export const Average = styled.div`
-  width: ${({ isBig }) => (isBig ? '50px' : '35px')};
-  height: ${({ isBig }) => (isBig ? '50px' : '35px')};
+  width: 35px;
+  height: 35px;
   border-radius: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: ${({ theme, isBig }) =>
-    isBig ? theme.fontSize.l : theme.fontSize.s};
+  font-size: ${({ theme }) => theme.fontSize.s};
   color: ${({ theme }) => theme.colors.white};
   font-weight: bold;
   background: ${({ theme, value }) => {
